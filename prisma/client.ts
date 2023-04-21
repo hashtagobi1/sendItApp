@@ -1,6 +1,4 @@
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { prisma } from "../db";
 
 async function main() {
   // queries go here...
@@ -15,4 +13,4 @@ main()
     await prisma.$disconnect();
     process.exit(1);
   });
-export default prisma
+export default prisma;

@@ -1,7 +1,9 @@
 "use client";
+import { Session } from "next-auth";
 import { signIn } from "next-auth/react";
+import { FC } from "react";
 
-const Login = () => {
+const Login: FC<{ session?: Session | null }> = ({ session }) => {
   return (
     <li className="list-none">
       <button
