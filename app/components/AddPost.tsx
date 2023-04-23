@@ -33,7 +33,7 @@ const AddPost: FC<{}> = ({}) => {
         setTitle("");
         setIsDisabled(false);
         setIsLoading(false);
-        queryClient.invalidateQueries(["allPosts"]);
+        queryClient.invalidateQueries(["getAllPosts"]);
         toast.success("Post created 🔥!", {
           id: toastPostID,
         });

@@ -16,7 +16,7 @@ const userPosts = async () => {
 const MyPosts = () => {
   const { data, error, isLoading } = useQuery<UserPosts>({
     queryFn: userPosts,
-    queryKey: ["userPosts"],
+    queryKey: ["getUserPosts"],
   });
   //   TODO: make this look sexier
   if (isLoading) {

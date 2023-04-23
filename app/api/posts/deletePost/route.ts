@@ -3,12 +3,8 @@ import { prisma } from "@/db";
 import { getServerSession } from "next-auth/next";
 
 export async function POST(req: Request, res: Response) {
-  const body: any = await req.json();
+  const body: { id: string } = await req.json();
   const postID = body.id;
-
-  console.log({ postID });
-  console.log({ body });
-  //   const postID: string = parse.id;
 
   const session = await getServerSession(authOptions);
   const user = await getServerSession(authOptions);
@@ -17,8 +13,6 @@ export async function POST(req: Request, res: Response) {
       status: 401,
     });
 
-  //   return new Response(`okay... ${body}`);
-  // Delete post
   try {
     const result = await prisma.post.delete({
       where: {

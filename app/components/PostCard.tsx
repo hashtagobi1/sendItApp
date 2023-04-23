@@ -8,6 +8,7 @@ import { TrashIcon } from "@heroicons/react/24/solid";
 import Toggle from "../dashboard/Toggle";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 const PostCard: FC<{
   image: string;
@@ -17,9 +18,9 @@ const PostCard: FC<{
   isUserPost: boolean;
   comments?: Comments[];
 }> = ({ image, name, content, id, isUserPost = false, comments }) => {
-  // console.log(id,content)
   const [toggle, setToggle] = useState(false);
   const queryClient = useQueryClient();
+  let toastID = "toast";
   const { mutate } = useMutation(
     async (post_id: string) =>
       await axios.post("api/posts/deletePost", {
@@ -28,16 +29,24 @@ const PostCard: FC<{
     {
       onError: (error) => {
         console.log({ MutateError: error });
+        toast.error("Woops! there was an Error removing your post. 😖", {
+          id: toastID,
+        });
       },
       onSuccess: (data) => {
-        queryClient.invalidateQueries(["userPosts"]);
-        console.log({ deleted: data });
+        toast.success("Poof! Your post has been deleted 🗑️", {
+          id: toastID,
+        });
+        queryClient.invalidateQueries(["getAllPosts"]);
+        queryClient.invalidateQueries(["getUserPosts"]);
       },
     }
   );
 
   const deletePost = () => {
-    // console.log({ MYID: id });
+    toast.loading("Deleting post... ⏳", {
+      id: toastID,
+    });
     mutate(id);
   };
   return (

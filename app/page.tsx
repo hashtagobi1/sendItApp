@@ -15,7 +15,7 @@ const allPosts = async () => {
 export default function Home() {
   const { data, error, isLoading } = useQuery<Post[]>({
     queryFn: allPosts,
-    queryKey: ["allPosts"],
+    queryKey: ["getAllPosts"],
   });
 
   if (error) return console.log(error);
