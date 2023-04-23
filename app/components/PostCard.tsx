@@ -6,7 +6,7 @@ import React, { FC, useState } from "react";
 import { Comments, Post } from "@/types/Posts";
 import { TrashIcon } from "@heroicons/react/24/solid";
 import Toggle from "../dashboard/Toggle";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
 const PostCard: FC<{
@@ -17,21 +17,27 @@ const PostCard: FC<{
   isUserPost: boolean;
   comments?: Comments[];
 }> = ({ image, name, content, id, isUserPost = false, comments }) => {
+  // console.log(id,content)
   const [toggle, setToggle] = useState(false);
+  const queryClient = useQueryClient();
   const { mutate } = useMutation(
-    async (id: string) =>
-      await axios.delete("api/posts/deletePost", { data: id }),
+    async (post_id: string) =>
+      await axios.post("api/posts/deletePost", {
+        id: post_id,
+      }),
     {
       onError: (error) => {
         console.log({ MutateError: error });
       },
       onSuccess: (data) => {
+        queryClient.invalidateQueries(["userPosts"]);
         console.log({ deleted: data });
       },
     }
   );
 
   const deletePost = () => {
+    // console.log({ MYID: id });
     mutate(id);
   };
   return (
@@ -76,7 +82,9 @@ const PostCard: FC<{
           {/* ) : null} */}
         </div>
       </div>
-      {toggle && <Toggle deletePost={deletePost} setToggle={setToggle} />}
+      {toggle && (
+        <Toggle id={id} deletePost={deletePost} setToggle={setToggle} />
+      )}
     </>
   );
 };

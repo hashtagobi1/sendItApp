@@ -5,7 +5,9 @@ import React, { FC } from "react";
 const Toggle: FC<{
   deletePost: () => void;
   setToggle: (toggle: boolean) => void;
-}> = ({ deletePost, setToggle }) => {
+  id: string;
+}> = ({ deletePost, setToggle, id }) => {
+  // console.log({ToDelete:id})
   return (
     <div
       onClick={(e) => {
