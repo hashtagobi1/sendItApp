@@ -7,21 +7,25 @@ import React, { FC } from "react";
 import { Session } from "next-auth";
 
 const Logged: FC<{ session?: Session | null }> = ({ session }) => {
+  const handleSignOut = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+    signOut({
+      callbackUrl: "http://localhost:3000/",
+    });
+  };
   return (
     <li className="flex gap-8 items-center">
-      <p className="mr-4">Welcome {session?.user?.name}</p>
       <button
-        onClick={() =>
-          signOut({
-            callbackUrl: "http://localhost:3000/",
-          })
-        }
-        className="bg-gray-700 text-white text-sm px-6 py-2 "
+        onClick={(e) => handleSignOut(e)}
+        className="bg-gray-700 text-white rounded-xl text-sm px-6 py-2 "
       >
         Sign Out
       </button>
       <Link className="" href={"/dashboard"}>
         <Image
+        priority
           alt={`profile picture for ${session?.user?.name}`}
           width={50}
           className="rounded-full w-14  hover:shadow-2xl"

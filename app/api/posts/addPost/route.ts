@@ -2,12 +2,9 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { prisma } from "@/db";
 import { getServerSession } from "next-auth/next";
 
-type POST_DATA = {
-  title: string;
-};
 export async function POST(req: Request, res: Response) {
-  const body: POST_DATA = await req.json();
-  const title = body.title;
+  const body = await req.json();
+  const title: string = body.title;
   const session = await getServerSession(authOptions);
   const user = await getServerSession(authOptions);
   if (!session || !user)

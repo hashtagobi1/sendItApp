@@ -5,6 +5,7 @@ import AddPost from "./components/AddPost";
 import { useQuery } from "@tanstack/react-query";
 import Posts from "./components/Posts";
 import { Post } from "@/types/Posts";
+import Dashboard from "./dashboard/page";
 
 const allPosts = async () => {
   const response = await axios.get("api/posts/getPost");
@@ -20,9 +21,9 @@ export default function Home() {
   if (error) return console.log(error);
   if (isLoading) return "Loading...";
 
-  console.log(data);
   return (
     <main className="">
+      {/* <Dashboard /> */}
       <AddPost />
       {data
         ? data.map((post, id) => <Posts key={post.id} postData={post} />)

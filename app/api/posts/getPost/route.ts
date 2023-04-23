@@ -13,11 +13,8 @@ export async function GET(req: Request, res: Response) {
         createdAt: "desc",
       },
     });
-    console.log({ data });
-
     return new Response(JSON.stringify(data));
   } catch (error) {
-    console.log(error);
     return new Response("Error fetching posts", {
       status: 403,
     });

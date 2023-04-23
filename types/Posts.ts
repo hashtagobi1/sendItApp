@@ -6,13 +6,14 @@ export type Post = {
     name: string;
     image: string;
   };
-  comments: Comments[];
+  comments?: Comments[];
 };
 
 export type Comments = {
   comments?: {
     createdAt: string;
     id: string;
+    content: string;
     postId: string;
     userId: string;
   };
