@@ -12,8 +12,9 @@ const Nav = async () => {
 
   return (
     <nav className="flex justify-between items-center py-8">
-      <Link href="/" className="flex justify-center items-center" >
+      <Link href="/" className="flex justify-center items-center">
         <h1 className="font-bold text-lg mr-3">Send it!</h1>
+
         <Image
           src="/images/paper_plane.png"
           alt="logo"
@@ -25,6 +26,7 @@ const Nav = async () => {
       <ul className="flex items-center gap-6">
         {session ? <Logged session={session} /> : <Login session={session} />}
       </ul>
+
     </nav>
   );
 };

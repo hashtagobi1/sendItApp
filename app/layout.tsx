@@ -2,6 +2,7 @@ import Nav from "./auth/Nav";
 import "./globals.css";
 import { Roboto } from "@next/font/google";
 import { QueryWrapper } from "./wrappers/wrappers";
+import Link from "next/link";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -25,6 +26,11 @@ export default async function RootLayout({
         <QueryWrapper>
           {/* @ts-expect-error Server Component */}
           <Nav />
+          <Link href={"/"}>
+            <h1 className="font-light underline text-blue-600 text-sm">
+              Github
+            </h1>
+          </Link>
           {children}
         </QueryWrapper>
       </body>
