@@ -5,6 +5,7 @@ import { getServerSession } from "next-auth/next";
 export async function POST(req: Request, res: Response) {
   const body: { id: string } = await req.json();
   const postID = body.id;
+  // console.log({ postID });
 
   const session = await getServerSession(authOptions);
   const user = await getServerSession(authOptions);
@@ -19,10 +20,12 @@ export async function POST(req: Request, res: Response) {
         id: postID,
       },
     });
-    return new Response(`Result: ${result}`, {
+    console.log({ result });
+    return new Response(`Result: `, {
       status: 200,
     });
   } catch (error) {
+    console.log({ error });
     return new Response("Error occured whilst deleting post", {
       status: 403,
     });
