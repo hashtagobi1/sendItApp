@@ -26,7 +26,7 @@ export default async function RootLayout({
         <QueryWrapper>
           {/* @ts-expect-error Server Component */}
           <Nav />
-          <Link href={"/"}>
+          <Link href={"https://github.com/hashtagobi1/sendItApp"}>
             <h1 className="font-light underline text-blue-600 text-sm">
               Github
             </h1>
