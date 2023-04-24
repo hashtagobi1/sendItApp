@@ -7,6 +7,7 @@ import Posts from "./components/Posts";
 import { Post } from "@/types/Posts";
 import Dashboard from "./dashboard/page";
 
+
 const allPosts = async () => {
   const response = await axios.get("api/posts/getPost");
   return response.data;
@@ -25,9 +26,11 @@ export default function Home() {
     <main className="">
       {/* <Dashboard /> */}
       <AddPost />
+      <div>
       {data
         ? data.map((post, id) => <Posts key={post.id} postData={post} />)
         : null}
+        </div>
     </main>
   );
 }

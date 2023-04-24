@@ -96,17 +96,17 @@ const PostCard: FC<{
           </Link>
 
           {/* )} */}
-          {/* {isUserPost ?? ( */}
-          <button
-            onClick={(e) => {
-              setToggle(true);
-            }}
-            className="text-sm  flex  justify-between items-center font-bold py-1 px-4 rounded-lg  bg-gray-200 text-red-500"
-          >
-            <TrashIcon className="h-4 w-4 mr-3 " />
-            Delete
-          </button>
-          {/* )} */}
+          {isUserPost ? (
+            <button
+              onClick={(e) => {
+                setToggle(true);
+              }}
+              className="text-sm  flex  justify-between items-center font-bold py-1 px-4 rounded-lg  bg-gray-200 text-red-500"
+            >
+              <TrashIcon className="h-4 w-4 mr-3 " />
+              Delete
+            </button>
+          ) : null}
         </div>
       </div>
       {toggle && (

@@ -17,6 +17,14 @@ const Logged: FC<{ session?: Session | null }> = ({ session }) => {
   };
   return (
     <li className="flex gap-8 items-center">
+      <Link href={"/dashboard"}>
+
+      <button
+        className="bg-teal-600 text-white rounded-xl text-sm px-6 py-2 "
+        >
+        See My Posts
+      </button>
+        </Link>
       <button
         onClick={(e) => handleSignOut(e)}
         className="bg-gray-700 text-white rounded-xl text-sm px-6 py-2 "
