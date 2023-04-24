@@ -15,9 +15,18 @@ const PostCard: FC<{
   name: string;
   content: string;
   id: string;
-  isUserPost: boolean;
   comments?: Comments[];
-}> = ({ image, name, content, id, isUserPost = false, comments }) => {
+  isUserPost?: boolean;
+  isComments?: boolean;
+}> = ({
+  image,
+  name,
+  content,
+  id,
+  comments,
+  isComments,
+  isUserPost = false,
+}) => {
   const [toggle, setToggle] = useState(false);
   const queryClient = useQueryClient();
   let toastID = "toast";
@@ -28,7 +37,6 @@ const PostCard: FC<{
       }),
     {
       onError: (error) => {
-        console.log({ MutateError: error });
         toast.error("Woops! there was an Error removing your post. 😖", {
           id: toastID,
         });
@@ -71,14 +79,16 @@ const PostCard: FC<{
           <p className="break-all">{content}</p>
         </div>
         <div className="flex gap-4 cursor-pointer justify-between items-center">
-          <Link href={`/posts/${id}`}>
-            <p className="text-sm  font-bold text-gray-700">
-              {comments?.length === 1
-                ? `${comments?.length} Comment`
-                : `${comments?.length} Comments`}
-            </p>
-          </Link>
-          {/* {isUserPost ? ( */}
+          {/* {isComments ?? ( */}
+            <Link href={`/post/${id}`}>
+              <p className="text-sm  font-bold text-gray-700">
+                {comments?.length === 1
+                  ? `${comments?.length} Comment`
+                  : `${comments?.length} Comments`}
+              </p>
+            </Link>
+          {/* )} */}
+          {/* {isUserPost ?? ( */}
           <button
             onClick={(e) => {
               setToggle(true);
@@ -88,7 +98,7 @@ const PostCard: FC<{
             <TrashIcon className="h-4 w-4 mr-3 " />
             Delete
           </button>
-          {/* ) : null} */}
+          {/* )} */}
         </div>
       </div>
       {toggle && (

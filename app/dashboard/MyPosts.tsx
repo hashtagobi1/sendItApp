@@ -28,7 +28,6 @@ const MyPosts = () => {
       </div>
     );
   }
-  console.log({ data });
   return (
     <div>
       {data?.post.map((post, i) => {

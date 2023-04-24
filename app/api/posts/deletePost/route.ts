@@ -28,3 +28,6 @@ export async function POST(req: Request, res: Response) {
     });
   }
 }
+
+// * this works
+// http://localhost:3000/post/clgqijrr50001lztq45qvl1kz

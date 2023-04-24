@@ -16,5 +16,11 @@ export type Comments = {
     content: string;
     postId: string;
     userId: string;
+    author?: {
+      email: string;
+      id: string;
+      image: string;
+      name: string;
+    };
   };
 };
