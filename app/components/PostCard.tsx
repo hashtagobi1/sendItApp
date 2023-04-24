@@ -80,7 +80,9 @@ const PostCard: FC<{
         </div>
         <div className="flex gap-4 cursor-pointer justify-between items-center">
           {/* {isComments ?? ( */}
-            <Link href={`/post/${id}`}>
+            <Link href={{
+              pathname:`/post/${id}`
+            }}>
               <p className="text-sm  font-bold text-gray-700">
                 {comments?.length === 1
                   ? `${comments?.length} Comment`

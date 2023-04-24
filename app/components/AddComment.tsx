@@ -17,41 +17,42 @@ const AddComment: FC<{ id: string }> = ({ id }) => {
   const queryClient = useQueryClient();
   let toastID = "comments";
 
-  const { mutate } = useMutation(
-    async (comment: CommentData) => {
-      await axios.post("api/posts/addComment", {
-        comment,
-      });
-    },
-    {
-      onError: (error) => {
-        setIsLoading(false);
-        setIsDisabled(false);
-        if (error instanceof AxiosError) {
-          toast.success(`Failed to add comment 🚫: ${error.response?.data} `, {
-            id: toastID,
-          });
-        }
-      },
-      onSuccess: (data) => {
-        setComment("");
-        setIsDisabled(false);
-        setIsLoading(false);
-        // queryClient.invalidateQueries("");
-        toast.error("Comment Added ✅", { id: toastID });
-      },
-    }
-  );
+  // const { mutate } = useMutation(
+  //   async (commentData: CommentData) => {
+  //     await axios.post(`/api/posts/addComment`, {
+  //       commentData,
+  //     });
+  //   },
+  //   {
+  //     onError: (error) => {
+  //       console.log({ error });
+  //       setIsLoading(false);
+  //       setIsDisabled(false);
+  //       if (error instanceof AxiosError) {
+  //         toast.error(`Failed to add comment 🚫:  ${error.response?.data}`, {
+  //           id: toastID,
+  //         });
+  //       }
+  //     },
+  //     onSuccess: (data) => {
+  //       setComment("");
+  //       setIsDisabled(false);
+  //       setIsLoading(false);
+  //       queryClient.invalidateQueries(["getPostFromSlug"]);
+  //       toast.success("Comment Added ✅", { id: toastID });
+  //     },
+  //   }
+  // );
 
   const submitComment = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsDisabled(true);
-    setIsLoading(true);
+    // setIsDisabled(true);
+    // setIsLoading(true);
     toast.loading("Adding comment.... ⏳", { id: toastID });
-    mutate({
-      comment,
-      id,
-    });
+    // mutate({
+    //   comment,
+    //   id,
+    // });
   };
   return (
     <form className="my-8 ">
@@ -68,7 +69,7 @@ const AddComment: FC<{ id: string }> = ({ id }) => {
           className="p-4 text-lg rounded-md my-2"
         />
         <div className="flex items-center  justify-between gap-2">
-          <button
+          {/* <button
             disabled={isDisabled}
             onClick={submitComment}
             className="text-sm flex bg-teal-600 text-white py-2 px-6 rounded-xl disabled:opacity-25"
@@ -99,7 +100,8 @@ const AddComment: FC<{ id: string }> = ({ id }) => {
               </svg>
             ) : null}
             {isLoading ? "Loading..." : "Add Comment  💬"}
-          </button>
+          </button> */}
+          <button onClick={submitComment}>Click</button>
           <p
             className={`font-bold text-sm ${
               comment.length > 300 ? "text-red-700" : "text-gray-700"

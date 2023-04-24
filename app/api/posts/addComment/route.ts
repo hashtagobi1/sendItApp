@@ -4,6 +4,7 @@ import { getServerSession } from "next-auth/next";
 
 export async function POST(req: Request, res: Response) {
   const body = await req.json();
+  console.log(body);
   const { post_comment, post_id }: any = body.data;
 
   const session = await getServerSession(authOptions);
@@ -12,6 +13,10 @@ export async function POST(req: Request, res: Response) {
     return new Response("Please sign in to make a comment!", {
       status: 401,
     });
+
+  return new Response("Ok", {
+    status: 200,
+  });
 
   // ? VALIDATION
   if (post_comment.length > 300)
@@ -33,14 +38,18 @@ export async function POST(req: Request, res: Response) {
   // Add Comment
   if (prismaUser) {
     try {
-const result  = prisma
-
+      const result = prisma.comment.create({
+        data: {
+          content: post_comment,
+          userId: prismaUser.id,
+          postId: post_id,
+        },
+      });
+      return new Response(`Comment Created ${result}`);
     } catch (error) {
       return new Response("Error occured whilst creating post", {
         status: 403,
       });
     }
   }
-
-  return new Response(`You sent a message that says: ${body.title}`, {});
 }

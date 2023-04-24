@@ -4,7 +4,6 @@ import { NextApiRequest } from "next";
 export async function GET(req: Request, res: Response) {
   const url = await req.url.split("/");
   const lastSegment = url.pop() || url.pop();
-  console.log({ myURL: lastSegment });
   // Get Data
   try {
     const data = await prisma.post.findUnique({
