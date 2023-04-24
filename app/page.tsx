@@ -10,6 +10,7 @@ import Dashboard from "./dashboard/page";
 
 const allPosts = async () => {
   const response = await axios.get("api/posts/getPost");
+  console.log({response})
   return response.data;
 };
 

@@ -9,6 +9,7 @@ import Toggle from "../dashboard/Toggle";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import moment from "moment";
 
 const PostCard: FC<{
   image: string;
@@ -18,6 +19,7 @@ const PostCard: FC<{
   comments?: any[];
   isUserPost?: boolean;
   isComments?: boolean;
+  postData?: Post;
 }> = ({
   image,
   name,
@@ -26,6 +28,7 @@ const PostCard: FC<{
   comments,
   isComments,
   isUserPost = false,
+  postData,
 }) => {
   const [toggle, setToggle] = useState(false);
   const queryClient = useQueryClient();
@@ -77,7 +80,14 @@ const PostCard: FC<{
             <div className="w-8 flex h-8  rounded-full  bg-blue-500"></div>
           )}
         </div>
-        <h3 className="font-bold text-gray-700">{name}</h3>
+        <div className="flex justify-between">
+          <h3 className="font-bold my-2 text-gray-700">{name}</h3>
+          <h3 className="text-sm">
+            {moment(postData?.createdAt).format(
+              "dddd, MMMM Do YYYY, h:mm:ss a"
+            )}
+          </h3>
+        </div>
         <div className="my-8">
           <p className="break-all">{content}</p>
         </div>
@@ -93,6 +103,15 @@ const PostCard: FC<{
                 ? `${comments?.length} Comment`
                 : `${comments?.length} Comments`}
             </p>
+          </Link>
+          <Link
+            href={{
+              pathname: `/post/${id}`,
+            }}
+          >
+            <h6 className="underline hover:cursor-pointer text-sm  font-bold text-gray-700">
+              View Comments
+            </h6>
           </Link>
 
           {/* )} */}

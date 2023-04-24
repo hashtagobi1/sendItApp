@@ -11,6 +11,7 @@ const Posts: FC<{
 }> = ({ postData }) => {
   return (
     <PostCard
+    postData={postData}
       id={postData.id}
       comments={postData.comments}
       image={postData.author.image}

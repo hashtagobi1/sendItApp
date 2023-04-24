@@ -9,7 +9,7 @@ import Loading from "@/app/components/Loading";
 import { PostType } from "@/types/PostType";
 import AddComment from "@/app/components/AddComment";
 import Image from "next/image";
-
+import moment from "moment";
 const fetchDetails = async (slug: string) => {
   const response = await axios.get(`api/posts/${slug}`);
   return response.data;
@@ -49,7 +49,11 @@ const PostDetail = ({ params }: { params: { slug: string } }) => {
                     alt="avatar"
                   />
                   <h3 className="font-bold">{comment?.user?.name}</h3>
-                  <h3 className="text-sm">{comment?.createdAt}</h3>
+                  <h3 className="text-sm">
+                    {moment(comment?.createdAt).format(
+                      "dddd, MMMM Do YYYY, h:mm:ss a"
+                    )}
+                  </h3>
                 </div>
                 <div className="border my-4 border-gray-400/20 rounded-md p-4">
                   <p className="">{comment.content}</p>

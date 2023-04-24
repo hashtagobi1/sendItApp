@@ -17,8 +17,14 @@ const Logged: FC<{ session?: Session | null }> = ({ session }) => {
   };
   return (
     <li className="flex gap-8 items-center">
+      <Link href={"/"}>
+      <button
+        className="bg-white text-black rounded-xl text-sm px-6 py-2 "
+        >
+        See All Posts
+      </button>
+        </Link>
       <Link href={"/dashboard"}>
-
       <button
         className="bg-teal-600 text-white rounded-xl text-sm px-6 py-2 "
         >

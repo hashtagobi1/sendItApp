@@ -14,8 +14,9 @@ const Dashboard = async () => {
   return (
     <div>
       <h1 className="text-2xl font-bold">Welcome back {session?.user?.name}</h1>
-      <h2 className="my-2 opacity-25 text-gray-900 👻">
-        Your personal private thoughts, now *public* ooo... scary
+      <h2 className="my-2 opacity-25 text-gray-900 ">
+        Your personal collection of private thoughts, but *public* ooo... scary
+        👻
       </h2>
       <MyPosts />
     </div>
