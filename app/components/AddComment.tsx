@@ -1,59 +1,71 @@
 "use client";
 
-import React, { FC, use, useState } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import React, { FC, FormEvent, useState } from "react";
+import {
+  QueryObserverResult,
+  RefetchOptions,
+  RefetchQueryFilters,
+  useMutation,
+  useQueryClient,
+} from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import { toast } from "react-hot-toast";
+import { PostType } from "@/types/PostType";
 
 type CommentData = {
   comment: string;
   id: string;
 };
 
-const AddComment: FC<{ id: string }> = ({ id }) => {
+const AddComment: FC<{
+  id: string;
+}> = ({ id }) => {
   const [comment, setComment] = useState("");
   const [isDisabled, setIsDisabled] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const queryClient = useQueryClient();
   let toastID = "comments";
 
-  // const { mutate } = useMutation(
-  //   async (commentData: CommentData) => {
-  //     await axios.post(`/api/posts/addComment`, {
-  //       commentData,
-  //     });
-  //   },
-  //   {
-  //     onError: (error) => {
-  //       console.log({ error });
-  //       setIsLoading(false);
-  //       setIsDisabled(false);
-  //       if (error instanceof AxiosError) {
-  //         toast.error(`Failed to add comment 🚫:  ${error.response?.data}`, {
-  //           id: toastID,
-  //         });
-  //       }
-  //     },
-  //     onSuccess: (data) => {
-  //       setComment("");
-  //       setIsDisabled(false);
-  //       setIsLoading(false);
-  //       queryClient.invalidateQueries(["getPostFromSlug"]);
-  //       toast.success("Comment Added ✅", { id: toastID });
-  //     },
-  //   }
-  // );
+  const { mutate } = useMutation(
+    async (commentData: CommentData) => {
+      await axios.post(`/api/posts/addComment`, {
+        commentData,
+      });
+    },
+    {
+      onError: (error) => {
+        setIsLoading(false);
+        setIsDisabled(false);
+        if (error instanceof AxiosError) {
+          toast.error(
+            `Failed to add comment 🚫: \n\n ${error.response?.data}`,
+            {
+              id: toastID,
+            }
+          );
+        }
+      },
+      onSuccess: (data) => {
+        queryClient.invalidateQueries(["detail-post"]);
+        setComment("");
+        setIsDisabled(false);
+        setIsLoading(false);
+        toast.success("Comment Added ✅", { id: toastID });
+      },
+    }
+  );
 
   const submitComment = async (e: React.FormEvent) => {
     e.preventDefault();
-    // setIsDisabled(true);
-    // setIsLoading(true);
+    setIsDisabled(true);
+    setIsLoading(true);
     toast.loading("Adding comment.... ⏳", { id: toastID });
-    // mutate({
-    //   comment,
-    //   id,
-    // });
+    mutate({
+      comment,
+      id,
+    });
   };
+
   return (
     <form className="my-8 ">
       <h3>Comments</h3>
@@ -69,7 +81,7 @@ const AddComment: FC<{ id: string }> = ({ id }) => {
           className="p-4 text-lg rounded-md my-2"
         />
         <div className="flex items-center  justify-between gap-2">
-          {/* <button
+          <button
             disabled={isDisabled}
             onClick={submitComment}
             className="text-sm flex bg-teal-600 text-white py-2 px-6 rounded-xl disabled:opacity-25"
@@ -100,8 +112,8 @@ const AddComment: FC<{ id: string }> = ({ id }) => {
               </svg>
             ) : null}
             {isLoading ? "Loading..." : "Add Comment  💬"}
-          </button> */}
-          <button onClick={submitComment}>Click</button>
+          </button>
+
           <p
             className={`font-bold text-sm ${
               comment.length > 300 ? "text-red-700" : "text-gray-700"

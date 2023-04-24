@@ -15,7 +15,7 @@ const PostCard: FC<{
   name: string;
   content: string;
   id: string;
-  comments?: Comments[];
+  comments?: any[];
   isUserPost?: boolean;
   isComments?: boolean;
 }> = ({
@@ -30,7 +30,10 @@ const PostCard: FC<{
   const [toggle, setToggle] = useState(false);
   const queryClient = useQueryClient();
   let toastID = "toast";
+
   const { mutate } = useMutation(
+    // "async (id: string) => await axios.delete(`/api/posts/deletePost?id=${id}`),"
+
     async (post_id: string) =>
       await axios.post("api/posts/deletePost", {
         id: post_id,
@@ -80,15 +83,18 @@ const PostCard: FC<{
         </div>
         <div className="flex gap-4 cursor-pointer justify-between items-center">
           {/* {isComments ?? ( */}
-            <Link href={{
-              pathname:`/post/${id}`
-            }}>
-              <p className="text-sm  font-bold text-gray-700">
-                {comments?.length === 1
-                  ? `${comments?.length} Comment`
-                  : `${comments?.length} Comments`}
-              </p>
-            </Link>
+          <Link
+            href={{
+              pathname: `/post/${id}`,
+            }}
+          >
+            <p className="text-sm  font-bold text-gray-700">
+              {comments?.length === 1
+                ? `${comments?.length} Comment`
+                : `${comments?.length} Comments`}
+            </p>
+          </Link>
+
           {/* )} */}
           {/* {isUserPost ?? ( */}
           <button

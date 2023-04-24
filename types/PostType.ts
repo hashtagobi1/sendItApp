@@ -1,5 +1,3 @@
-import { Comments } from "./Posts";
-
 export type PostType = {
   id: string;
   title: string;
@@ -10,5 +8,17 @@ export type PostType = {
     image: string;
     name: string;
   };
-  comments: Comments[];
+  comments: {
+    createdAt?: string;
+    id: string;
+    postId: string;
+    content: string;
+    userId: string;
+    user: {
+      email: string;
+      id: string;
+      image: string;
+      name: string;
+    };
+  }[];
 };
