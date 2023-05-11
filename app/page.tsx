@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import AddPost from "./components/AddPost";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Posts from "./components/Posts";
 import { Post } from "@/types/Posts";
 import Dashboard from "./dashboard/page";
@@ -18,6 +18,9 @@ export default function Home() {
     queryKey: ["getAllPosts"],
     queryFn: allPosts,
   });
+  const queryClient = useQueryClient();
+  queryClient.invalidateQueries(["getAllPosts"]);
+
   console.log({ data });
 
   if (error) return console.log(error);
